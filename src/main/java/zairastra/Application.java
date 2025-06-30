@@ -1,6 +1,7 @@
 package zairastra;
 
 import zairastra.entities.Collection;
+import zairastra.entities.Tablegame;
 import zairastra.entities.Videogame;
 import zairastra.entities.enums.Device;
 import zairastra.entities.enums.Genre;
@@ -112,6 +113,42 @@ public class Application {
             System.out.println("Errore generico: " + e.getMessage());
         }
     }
+
+    //IL CONTROLLO PER IL TABLEGAME STA NELLA CLASSE, GESTISCI L'ECCEZIONE FUORI
+    private static void addTablegame() {
+        try {
+            System.out.println("Id: ");
+            String id = scanner.nextLine();
+
+            System.out.println("Nome: ");
+            String title = scanner.nextLine();
+
+            System.out.println("Anno pubblicazione: ");
+            int year = Integer.parseInt(scanner.nextLine());
+
+            System.out.println("Prezzo: ");
+            double price = Double.parseDouble(scanner.nextLine());
+
+            System.out.println("Numero di giocatori: ");
+            int playerNumb = Integer.parseInt(scanner.nextLine());
+
+            System.out.println("Durata di gioco media: ");
+            int duration = Integer.parseInt(scanner.nextLine());
+
+            Tablegame tablegame = new Tablegame(id, title, year, price, playerNumb, duration);
+            gameCollection.addGame(tablegame);
+            System.out.println("Gioco da tavolo aggiunto alla lista");
+
+        } catch (InputError e) {
+            System.out.println("Errore: " + e.getMessage());
+        } catch (IdDuplicated e) {
+            System.out.println("Errore: ID duplicato! " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Errore generico: " + e.getMessage());
+        }
+    }
+
+
 }
 
 
