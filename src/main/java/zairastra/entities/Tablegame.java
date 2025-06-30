@@ -43,4 +43,10 @@ public class Tablegame extends Game {
         this.duration = duration;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", playerNumb=" + playerNumb +
+                ", duration=" + duration;
+    }
 }

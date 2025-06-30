@@ -60,8 +60,7 @@ public class Collection {
     }
 
     //accedi a tutti i dati per id e modifica
-
-
+    
     //stampa statistiche in console: num totale in map, prezzo maggiore, media prezzi
 
 }

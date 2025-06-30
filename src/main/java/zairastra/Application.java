@@ -1,13 +1,16 @@
 package zairastra;
 
 import zairastra.entities.Collection;
+import zairastra.entities.Game;
 import zairastra.entities.Tablegame;
 import zairastra.entities.Videogame;
 import zairastra.entities.enums.Device;
 import zairastra.entities.enums.Genre;
 import zairastra.entities.exceptions.IdDuplicated;
+import zairastra.entities.exceptions.IdNotFound;
 import zairastra.entities.exceptions.InputError;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -25,7 +28,7 @@ public class Application {
                 case "1" -> addVideogame();
                 case "2" -> addTablegame();
                 case "3" -> searchByPrice();
-                case "4" -> searchByPlayerNumber();
+//                case "4" -> searchByPlayerNumber();
                 case "5" -> removeById();
                 case "0" -> {
                     System.out.println("Esecuzione terminata");
@@ -108,9 +111,9 @@ public class Application {
             System.out.println("Videogame aggiunto alla lista");
 
         } catch (IdDuplicated e) {
-            System.out.println("Errore: ID duplicato! " + e.getMessage());
+            System.out.println("Codice identificativo già presente " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Errore generico: " + e.getMessage());
+            System.out.println("Errore - " + e.getMessage());
         }
     }
 
@@ -140,11 +143,53 @@ public class Application {
             System.out.println("Gioco da tavolo aggiunto alla lista");
 
         } catch (InputError e) {
-            System.out.println("Errore: " + e.getMessage());
+            System.out.println("Input non valido");
         } catch (IdDuplicated e) {
-            System.out.println("Errore: ID duplicato! " + e.getMessage());
+            System.out.println("Codice identificativo già presente" + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Errore generico: " + e.getMessage());
+            System.out.println("Errore - " + e.getMessage());
+        }
+    }
+
+    //deve solo stampare?
+    private static void searchByPrice() {
+        try {
+            System.out.println("Inserisci il prezzo massimo per la tua ricerca:");
+            double maxPrice = Double.parseDouble(scanner.nextLine());
+
+            List<Game> results = gameCollection.searchByPrice(maxPrice);
+
+            if (results.isEmpty()) {
+                System.out.println("Nessun elemento corrisponde ai parametri inseriti");
+            } else {
+                for (Game game : results) {
+                    System.out.println(game);
+                }
+            }
+
+        } catch (InputError e) {
+            System.out.println("Input non valido");
+
+        } catch (Exception e) {
+            System.out.println("Errore - " + e.getMessage());
+        }
+    }
+
+    //
+
+    //
+    private static void removeById() {
+        try {
+            System.out.println("Inserisci il codice identificativo del gioco da rimuovere:");
+            String id = scanner.nextLine();
+
+            gameCollection.removeById(id);
+            System.out.println("Elemento" + id + " rimosso");
+
+        } catch (IdNotFound error) {
+            System.out.println("Non c'è alcun elemento corrispondente a questo codice");
+        } catch (Exception e) {
+            System.out.println("Errore - " + e.getMessage());
         }
     }
 

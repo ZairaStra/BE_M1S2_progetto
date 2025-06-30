@@ -47,4 +47,11 @@ public class Videogame extends Game {
         this.genre = genre;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", device=" + device +
+                ", duration=" + duration +
+                ", genre=" + genre;
+    }
 }
